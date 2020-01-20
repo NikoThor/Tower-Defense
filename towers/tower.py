@@ -3,7 +3,7 @@ class Tower:
     Abstract class for towers
     """
 
-    def __init__(self, x, y):
+    def __init__(self,x, y):
         self.x = x
         self.y = y
         self.width = 0
@@ -21,8 +21,8 @@ class Tower:
         :param win: surface
         :return: None
         """
-        img = self.tower_imgs[self.level],
-        win.blit(img, (self.x - img.get_width()/2, self.y - img.get_height()/2))
+        img = self.tower_imgs[self.level - 1]
+        win.blit(img, (self.x - img.get_width() // 2, self.y - img.get_height() // 2))
 
     def click(self,X,Y):
         """
