@@ -23,16 +23,15 @@ class ArcherTowerLong(Tower):
         self.archer_imgs = archer_imgs1[:]
         self.archer_count = 0
         self.range = 200
+        self.original_range = self.range
         self.inRange = False
         self.left = True
         self.damage = 1
+        self.original_damage = self.damage
+        self.width = self.height = 90
 
     def draw(self, win):
-        # draw range circle
-        surface = pygame.Surface((self.range * 4, self.range * 4), pygame.SRCALPHA, 32)
-        pygame.draw.circle(surface, (128, 128, 128, 100), (self.range, self.range), self.range, 0)
-        win.blit(surface, (self.x - self.range, self.y - self.range))
-
+        super().draw_radius(win)
         super().draw(win)
         if self.inRange:
             self.archer_count += 1
@@ -45,7 +44,7 @@ class ArcherTowerLong(Tower):
             add = -25
         else:
             add = -archer.get_width() + 10
-        win.blit(archer, ((self.x + self.width / 2 + add), (self.y - archer.get_height() - 15)))
+        win.blit(archer, ((self.x + add), (self.y - archer.get_height() - 15)))
 
     def change_range(self, r):
         self.range = r
@@ -99,7 +98,9 @@ class ArcherTowershort(ArcherTowerLong):
         self.archer_imgs = archer_imgs[:]
         self.archer_count = 0
         self.range = 100
+        self.original_range = self.range
         self.inRange = False
         self.left = True
         self.damage = 2
+        self.original_damage = self.damage
 
