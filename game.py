@@ -20,13 +20,15 @@ class Game:
         self.win = pygame.display.set_mode((self.width, self.height))
         self.enemys = [Club()]
         self.attack_towers = [ArcherTowerLong(300, 200), ArcherTowerLong(700, 600), ArcherTowershort(200, 600)]
-        self.support_towers = [RangeTower(400,200)]
+        self.support_towers = [DamageTower(400,200)]
         self.lives = 10
         self.money = 100
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
         self.life_font =  pygame.font.SysFont("comicsans", 70)
+        self.selected_tower = None
+
 
 
     def run(self):
@@ -44,7 +46,31 @@ class Game:
                 pos = pygame.mouse.get_pos()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    # Look to see if you clicked on a attack tower
+                    bnt_clicked = None
+                    if self.selected_tower:
+                        bnt_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
+                        if bnt_clicked:
+                            print(bnt_clicked)
+                    if not (bnt_clicked):
+                        for tw in self.attack_towers:
+                            if tw.click(pos[0], pos[1]):
+                                tw.selected = True
+                                self.selected_tower = tw
+                            else:
+                                tw.selected = False
+
+                            # look if you clicked on support tower
+                        for tw in self.support_towers:
+                            if tw.click(pos[0], pos[1]):
+                                tw.selected = True
+                                self.selected_tower = tw
+                            else:
+                                tw.selected = False
+
+
+
+
             to_del  = []
             #   loop through enemies
             for en in self.enemys:

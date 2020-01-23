@@ -13,6 +13,7 @@ class RangeTower(Tower):
         self.range = 75
         self.effect = [0.2, 0,4]
         self.tower_imgs = range_imgs[:]
+        self.width = self.height = 90
 
     def draw(self, win):
         super().draw_radius(win)
