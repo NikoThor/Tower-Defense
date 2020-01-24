@@ -44,6 +44,9 @@ class Menu:
         btn_y = self.y - 120 + 10
         self.buttons.append(Button(btn_x,btn_y, img, name))
 
+    def get_item_cost(self):
+        return self.item_cost[self.tower.level - 1]
+
     def draw(self, win):
         win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y-120))
         for item in self.buttons:

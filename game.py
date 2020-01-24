@@ -22,7 +22,7 @@ class Game:
         self.attack_towers = [ArcherTowerLong(300, 200), ArcherTowerLong(700, 600), ArcherTowershort(200, 600)]
         self.support_towers = [DamageTower(400,200)]
         self.lives = 10
-        self.money = 100
+        self.money = 2500
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.timer = time.time()
@@ -52,7 +52,10 @@ class Game:
                         bnt_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
                         if bnt_clicked:
                             if bnt_clicked == "Upgrade":
-                                self.selected_tower.upgrade()
+                                cost = self.selected_tower.get_upgrade_cost()
+                                if self.money >= cost:
+                                    self.money -= cost
+                                    self.selected_tower.upgrade()
                     if not (bnt_clicked):
                         for tw in self.attack_towers:
                             if tw.click(pos[0], pos[1]):
@@ -83,7 +86,7 @@ class Game:
                 self.enemys.remove(d)
             # loop through  attack towers
             for tw in self.attack_towers:
-                tw.attack(self.enemys)
+               self.money += tw.attack(self.enemys)
 
              # loop through support towers
             for tw in self.support_towers:
@@ -111,13 +114,22 @@ class Game:
             en.draw(self.win)
 
         # draw lives
-        text = self.life_font.render(str(self.lives), 1, (0,0,0))
+        text = self.life_font.render(str(self.lives), 1, (255,255,255))
         life = pygame.transform.scale(lives_img, (50,50))
         start_x = self.width - life.get_width() - 10
 
 
         self.win.blit(text, (start_x - text.get_width() - 10, 13))
         self.win.blit(life, (start_x, 10))
+
+        # draw money
+        text = self.life_font.render(str(self.money), 1, (255, 255, 255))
+        money = pygame.transform.scale(star_img, (50, 50))
+        start_x = self.width - life.get_width() - 10
+
+        self.win.blit(text, (start_x - text.get_width() - 10, 75))
+        self.win.blit(money, (start_x, 65))
+
 
 
         pygame.display.update()
