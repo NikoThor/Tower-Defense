@@ -3,6 +3,7 @@ import os
 pygame.font.init()
 
 star = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "star.png")), (50,50))
+star2 = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "star.png")), (20,20))
 
 class Button:
     def __init__(self, x, y, img, name):
@@ -22,6 +23,11 @@ class Button:
     def draw(self, win):
         win.blit(self.img, (self.x, self.y))
 
+
+class VerticalButton(Button):
+    def __init__(self, x, y, img, name, cost):
+        super().__init__(x,y,img,name)
+        self.cost = cost
 
 
 
@@ -66,3 +72,34 @@ class Menu:
             if btn.click(X, Y):
                 return btn.name
         return None
+
+class VerticalMenu(Menu):
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.width = img.get_width
+        self.height = img.get_height
+        self.items = 0
+        self.buttons = []
+        self.bg = img
+        self.font = pygame.font.SysFont("comicsans", 25)
+
+    def add_btn(self, img, name, cost):
+        self.items += 1
+        btn_x = self.x -40
+        btn_y = self.y - 100 + (self.items-1) *100
+        self.buttons.append(VerticalButton(btn_x, btn_y, img, name, cost))
+
+    def get_item_cost(self):
+        return Exception(" Not Implemented")
+
+    def draw(self, win):
+        win.blit(self.bg, (self.x - self.bg.get_width()/2, self.y-120))
+        for item in self.buttons:
+            item.draw(win)
+            win.blit(star2, (item.x + 2 , item.y + item.height))
+            text = self.font.render(str(item.cost), 1, (255,255,255))
+            win.blit(text, (item.x + item.width/2 - text.get_width()/2 + 7, item.y + item.height + 5))
+
+
+

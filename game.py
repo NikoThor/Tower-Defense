@@ -4,6 +4,7 @@ from enemies.scorpion import Scorpion
 from enemies.club import Club
 from enemies.wizard import Wizard
 from towers.archerTower import ArcherTowerLong, ArcherTowershort
+from menu.Menu import VerticalMenu
 from towers.supportTower import RangeTower, DamageTower
 import time
 import random
@@ -12,13 +13,20 @@ import random
 pygame.font.init()
 lives_img = pygame.image.load(os.path.join("game_assets","heart.png"))
 star_img = pygame.image.load(os.path.join("game_assets","star.png"))
+side_img = pygame.transform.scale(pygame.image.load(os.path.join("game_assets","side.png")), (120, 500))
+
+
+buy_archer = pygame.transform.scale(pygame.image.load(os.path.join("game_assets","buy_archer.png")),(75,75))
+buy_crossbow = pygame.transform.scale(pygame.image.load(os.path.join("game_assets","buy_crossbow.png")), (75,75))
+buy_damage = pygame.transform.scale(pygame.image.load(os.path.join("game_assets","buy_damage.png")), (75,75))
+buy_range = pygame.transform.scale(pygame.image.load(os.path.join("game_assets","buy_range.png")), (75,75))
 
 class Game:
     def __init__(self):
-        self.width = 1250
+        self.width = 1350
         self.height = 700
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.enemys = [Club()]
+        self.enemys = []
         self.attack_towers = [ArcherTowerLong(300, 200), ArcherTowerLong(700, 600), ArcherTowershort(200, 600)]
         self.support_towers = [DamageTower(400,200)]
         self.lives = 10
@@ -28,6 +36,11 @@ class Game:
         self.timer = time.time()
         self.life_font =  pygame.font.SysFont("comicsans", 70)
         self.selected_tower = None
+        self.menu = VerticalMenu(self.width - side_img.get_width() + 70, 250, side_img)
+        self.menu.add_btn(buy_archer,"buy_archer", 500)
+        self.menu.add_btn(buy_crossbow,"buy_archer", 750)
+        self.menu.add_btn(buy_damage,"buy_archer", 1000)
+        self.menu.add_btn(buy_range,"buy_archer", 1000)
 
 
 
@@ -112,6 +125,9 @@ class Game:
         # draw enemies
         for en in self.enemys:
             en.draw(self.win)
+
+        # Draw menu
+        self.menu.draw(self.win)
 
         # draw lives
         text = self.life_font.render(str(self.lives), 1, (255,255,255))
