@@ -38,6 +38,8 @@ class ArcherTowerLong(Tower):
         self.damage = 1
         self.original_damage = self.damage
         self.width = self.height = 90
+        self.moving = False
+        self.name = "archer"
 
         self.menu = Menu(self, self.x, self.y, menu_bg, [2000, 5000, "MAX"])
         self.menu.add_btn(upgrade_btn, "Upgrade")
@@ -48,7 +50,7 @@ class ArcherTowerLong(Tower):
     def draw(self, win):
         super().draw_radius(win)
         super().draw(win)
-        if self.inRange:
+        if self.inRange and not self.moving:
             self.archer_count += 1
             if self.archer_count >= len(self.archer_imgs) * 10:
                 self.archer_count = 0
@@ -122,5 +124,6 @@ class ArcherTowershort(ArcherTowerLong):
         self.original_damage = self.damage
         self.menu = Menu(self, self.x, self.y, menu_bg, [2400, 5500, "MAX"])
         self.menu.add_btn(upgrade_btn, "Upgrade")
+        self.name = "crossbow"
 
 
