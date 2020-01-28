@@ -9,6 +9,7 @@ from towers.supportTower import RangeTower, DamageTower
 import time
 import random
 
+path = [(-10, 224),(19, 224), (177, 235), (282, 283), (526, 277), (607, 217), (641, 105), (717, 57), (796, 83), (855, 222), (973, 284), (1046, 366), (1022, 458), (894, 492), (740, 504), (580, 542), (148, 541), (10, 442), (-20, 335), (-75, 305), (-100, 345)]
 pygame.font.init()
 lives_img = pygame.image.load(os.path.join("game_assets", "heart.png"))
 star_img = pygame.image.load(os.path.join("game_assets", "star.png"))

@@ -84,7 +84,7 @@ class ArcherTowerLong(Tower):
             first_enemy = enemy_closest[0]
             if self.archer_count == 40:
                 if first_enemy.hit(self.damage) == True:
-                    money = first_enemy.money
+                    money = first_enemy.money * 2
                     enemies.remove(first_enemy)
 
 

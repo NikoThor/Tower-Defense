@@ -27,6 +27,7 @@ class Enemy:
         win.blit(self.img, (self.x - self.img.get_width()/2, self.y- self.img.get_height()/2 - 35))
         self.draw_health_bar(win)
 
+
     def draw_health_bar(self, win):
         length = 50
         move_by = length / self.max_health
@@ -48,14 +49,17 @@ class Enemy:
         self.animation_count += 1
         if self.animation_count >= len(self.imgs):
             self.animation_count = 0
+
+
         x1, y1 = self.path[self.path_pos]
+        x1 = x1 +70
         if self.path_pos + 1 >= len(self.path):
-            x2, y2 = (-10, 347)
+            x2, y2 = (-10, 355)
 
         else:
             x2, y2 = self.path[self.path_pos + 1]
 
-
+        x2 = x2+70
         dirn = ((x2 - x1)*2, (y2 - y1)*2)
         length = math.sqrt((dirn[0]) ** 2 + (dirn[1]) ** 2)
         dirn = (dirn[0] / length, dirn[1] / length)
