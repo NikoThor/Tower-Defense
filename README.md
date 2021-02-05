@@ -1,3 +1,9 @@
+#Det sidste spil jeg udviklede i Python Se 
+https://github.com/NikoThor/5_Spil_i_Python
+
+for de andre spil
+
+
 *HOW TO PLAY*
 
 ```
